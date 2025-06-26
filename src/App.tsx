@@ -1,34 +1,28 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import './App.css';
+import Item from './Item';
+import List from './List';
+import { useState } from 'react';
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [items, setItems] = useState([
+    { id: 1, content: 'Hello, World!', name: 'Alice' },
+    { id: 2, content: 'React is fun.', name: 'Bob' },
+    { id: 3, content: 'Yay, interesting.', name: 'Chris' },
+  ]);
+
+  const remove = (id: number) => {
+    setItems(items.filter((item) => item.id !== id));
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Welcome</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div style={{ maxWidth: 600, margin: '20px auto' }}>
+      <h1>Yaycha</h1>
+      <List>
+        {items.map((item) => (
+          <Item key={item.id} item={item} remove={remove} />
+        ))}
+      </List>
+    </div>
   );
 }
 
